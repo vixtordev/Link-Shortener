@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="en">
+<script type="text/javascript">
+  console.log("Hi from js!");
+  function redr(x){
+      window.location.href = x;
+  }
+</script>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython.js" integrity="sha256-rA89wPrTJJQFWJaZveKW8jpdmC3t5F9rRkPyBjz8G04=" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/brython@3.10.6/brython.min.js">
+</script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/brython@3.10.6/brython_stdlib.js">
+</script>
 
     <style>
         * {
@@ -66,6 +74,7 @@
     <title>Brython Demo</title>
 </head>
 <body onload="brython()">
+    <title>Loading...</title>
     <h1>loading...</h1>
 
     <!-- Alert & DOM insert -->
@@ -75,18 +84,15 @@
 
 
     <!-- Load file data -->
-    <script type="text/javascript">
-        function redr(x){
-            window.location.href = x;
-        }
-        </script>
-    <script type="text/python">
 
+    <script type="text/python">
+        print("Hello world!")
         from browser import document, ajax, window
         import json
         id = document.query['i']
         def read(req):
             window.redr(json.loads(req.text)["url"])
+        print("Trying to get...")
         ajax.get("https://api.jsonbin.it/bins/"+id, mode="text", oncomplete=read)
 
     </script>
