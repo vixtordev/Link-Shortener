@@ -77,7 +77,7 @@
 </head>
 <body onload="brython()">
     <title>Loading...</title>
-    <h1>Loading your link...</h1>
+    <h1>Loading your link... (might take 10s)</h1>
     <p>Powered by techdragon.dev</p>
 
     <!-- Alert & DOM insert -->
@@ -90,13 +90,21 @@
 
     <script type="text/python">
         print("Hello world!")
+        from browser import timer
         from browser import document, ajax, window
         import json
-        id = document.query['i']
         def read(req):
             window.redr(json.loads(req.text)["url"])
-        print("Trying to get...")
-        ajax.get("https://api.jsonbin.it/bins/"+id, mode="text", oncomplete=read)
+        def run():
+            id = document.query['i']
+            print("Trying to get...")
+            ajax.get("https://api.jsonbin.it/bins/"+id, mode="text", oncomplete=read)
+        timer.set_timeout(run, 10000)
+
+        
+        
+
+
 
     </script>
 </body>
